@@ -24,7 +24,8 @@ You are the poll clerk.
       <input type="text" class="form-control" name="postcode">
       <p class="help-block">You know what a postcode is.</p>
     </div>
-
+    {{ form.csrf_token }}
     <button class="btn btn-primary btn-start" type="submit" value="Search for voter">Search voter database</button>
+
   </form>
 {% endblock %}
