@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired, Regexp
 
 class FindVoterForm(Form):
     firstname = StringField('firstname', validators=[DataRequired("No name entered."),
-    Regexp('[A-z\'- ]+', message="Invalid first name entered")])
+    Regexp('[A-Za-z\'-]+', message="Invalid first name entered")])
     postcode = StringField('password', validators=[DataRequired("No postcode entered."),
     Regexp('(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})', message="Invalid postcode entered")])
