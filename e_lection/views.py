@@ -2,6 +2,8 @@ from e_lection import app
 from flask import render_template
 from flask import request
 
+from forms import FindVoterForm
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -12,7 +14,8 @@ def station():
     return render_template('station.html')
 
 @app.route('/station', methods=['POST'])
-def my_form_post():
-    firstname = request.form['firstname']
-    postcode = request.form['postcode']
-    return firstname
+def find_voter():
+    form = FindVoterForm()
+    if form.validate_on_submit():
+        return render_template('index.html', form = form)
+    return render_template('station.html', form = form)
