@@ -3,5 +3,5 @@ from wtforms import StringField
 from wtforms.validators import DataRequired, Email
 
 class FindVoterForm(Form):
-    firstname = StringField('firstname', validators=[DataRequired()])
-    postcode = StringField('password', validators=[DataRequired()])
+    firstname = StringField('firstname', validators=[DataRequired("No name entered.")])
+    postcode = StringField('password', validators=[DataRequired("No postcode entered.")])
