@@ -9,6 +9,7 @@
 }
 
 
+
 /* STATION FORM STUFF */
 .station-info-entry {
   display: block;
@@ -20,4 +21,8 @@
 
 .station-info-entry > p{
   font-size: 55%;
+}
+
+.form-control {
+  font-size: 20px;
 }
