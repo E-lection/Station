@@ -17,25 +17,24 @@ These are the voters with that name.
       <tr>
         <th>Firstname</th>
         <th>Lastname</th>
-        <th>Email</th>
+        <th>Address</th>
+        <th>D.O.B</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+        <!--repeat this table row for each item in items-->
+        {% for voter in voters %}
+        <tr>
+            <td>{{voter.fields.first_name}}</td>
+            <td>{{voter.fields.last_name}}</td>
+            <td>{{voter.fields.addr_line_1}}, {{voter.fields.addr_line_2}}, {{voter.fields.postcode}}</td>
+            <td>{{voter.fields.date_of_birth}}</td>
+            <td>
+              <button class="btn btn-primary voterdb-btn">Request PIN</button>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
   </table>
 {% endblock %}
