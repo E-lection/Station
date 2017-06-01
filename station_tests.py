@@ -32,34 +32,39 @@ class StationTestCase(unittest.TestCase):
 
     # Find voter helper function
     def find_voter(self, firstname, postcode):
-        return self.application.post('/station', data=dict(
+        return self.application.post('/', data=dict(
             firstname=firstname,
             postcode=postcode
         ), follow_redirects=True)
 
-    # Tests that it throws an error if the name is invalid
-    def test_invalid_name_validation(self):
-        rv = self.find_voter(
-            application.application.config['FIRSTNAME'] + '&',
-            application.application.config['POSTCODE'],
-        )
-        print rv.data
-        assert b'Invalid first name entered' in rv.data
+    # Tests that it asks for a first name
+    def test_firstname_field_loaded(self):
+        result = self.application.get('/')
+        assert b'First name(s)' in result.data
 
-    # Test that it throws an error if the postcode is invalid
-    def test_invalid_postcode_validation(self):
-        rv = self.find_voter(
-            application.application.config['FIRSTNAME'],
-            application.application.config['POSTCODE'] + '666',
-        )
-        assert b'Invalid postcode entered' in rv.data
+    # Tests that it asks for a postcode
+    def test_postcode_field_loaded(self):
+        result = self.application.get('/')
+        assert b'Postcode' in result.data
+
+    # # Tests that it throws an error if the name is invalid
+    # def test_invalid_name_validation(self):
+    #     rv = self.find_voter(
+    #         application.application.config['FIRSTNAME'] + '&',
+    #         application.application.config['POSTCODE'],
+    #     )
+    #     assert b'Invalid first name entered' in rv.data
+    #
+    # # Test that it throws an error if the postcode is invalid
+    # def test_invalid_postcode_validation(self):
+    #     rv = self.find_voter(
+    #         application.application.config['FIRSTNAME'],
+    #         application.application.config['POSTCODE'] + '666',
+    #     )
+    #     assert b'Invalid postcode entered' in rv.data
 
     # Test that it redirects to the correct page if name
     # and postcode are both valid
 
 if __name__ == '__main__':
     unittest.main()
-
-# def test_find_voter(self):
-#     rv = self.find_voter('Jenny', 'SW6 7ND')
-#     assert
