@@ -5,10 +5,14 @@ from flask import Flask
 from flask import render_template
 from forms import FindVoterForm
 
-application = Flask(__name__)
+# Configuration. Example cases for TESTING
+FIRSTNAME = 'Jenny'
+POSTCODE = 'B91 3LH'
+SECRET_KEY = 'development key'
+TEMPLATES_AUTO_RELOAD = True
 
-application.config['TEMPLATES_AUTO_RELOAD'] = True
-application.secret_key = 'development key'
+application = Flask(__name__)
+application.config.from_object(__name__)
 
 @application.route('/')
 def station():
