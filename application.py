@@ -6,7 +6,7 @@ from flask import render_template
 from forms import FindVoterForm
 from flask import request
 import urllib, urllib2
-
+import json
 # Configuration. Example cases for TESTING
 FIRSTNAME = 'Jenny'
 POSTCODE = 'B91 3LH'
@@ -29,7 +29,17 @@ def find_voter():
         postcode = request.form['postcode']
         url = createSearchURL(firstname, postcode)
         dbresult = urllib2.urlopen(url).read()
-        return render_template('voterdb.html', form=form)
+        resultjson = json.loads(dbresult)
+        success = resultjson['success']
+        voters = resultjson['voters']
+        print voters
+        if success:
+            # matching entry found
+            return render_template('voterdb.html', voters=voters)
+        else:
+            # no matching entry in database, try again
+            return render_template('station.html', form=form)
+
     return render_template('station.html', form=form)
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
