@@ -1,0 +1,14 @@
+language: python
+python: '2.7'
+script: python -m unittest station_tests
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAILL4W3RIQMZAFTPQ
+  secret_access_key:
+    secure: J/VWPKXwTHi8OkJ0yB06ZG8YQKIpIKA1XjQl9A1IXYh5Z69Vhb7vkwd64X1a3chWQQw5atfvB3to+WAzqa+FLhyrKYAeOkmtF3GcodgtUbq9ytt9pYHlevffoZzb27Kz3quqdOzR09tYBAnmDD982empl6cHG4vrISYdOuJ2Q58tZBQE1Nha8/gg4zzWDU1UNl0mR4DsFDN4kBFZiLwUce3zM9PQ9DA0/AeQQWwSZr26kRYSAHrFLwWZs4RSRozvFKB5Vz1d/mBzZkcA16p4Kb5iaR93NjwFKgORYwYxJVVCvijhoGNzq0/SyJFifQd2mVhPa7c6agShx31PaorndsXKUd5TiaCnSYhMF1tO9OalTfSbVk8gswN4kss4SgZy7ibdltxKotGX9tdIt8Sewt5o+ltqEJDFiK8yN2XnijBbjMSP8wEvA0CmbTePKHkePRZLBr4QhkwcwPBZRg2uL0GB3KOhcHp1A4MKI2pkn+8yCNat3ii6Shb4lCgzXQ/4+BzeTgCvWzj4aCoCKrGdkmHVo3j9EW+lNkh/AmLLhaeKgUoQY4mVkmthDkXEgcyJSKI7xts2974gsyiEwHRz+r/8oGuB12sUgBRNt8sTI9YKKpJTzWRwAsIKw50HL1MNHKSPZe7IrVpmKWJu2rAG1jzLz2PSQ/kXqmsl8yvLRS8=
+  region: eu-west-2
+  app: e-lection-station
+  env: flask-env
+  on:
+    repo: E-lection/Station
+  bucket_name: "elasticbeanstalk-eu-west-2-699181153619"
