@@ -1,0 +1,41 @@
+
+/* VOTER PIN CARD STUFF */
+.voter-pin {
+  text-align: center;
+}
+
+.container-fluid {
+    height: 100% !important;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.content {
+    height: 100%;
+    padding: 30px 25px 30px 25px;
+}
+
+.row {
+    height: 50%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.a4pagebody {
+  height: 842px;
+  width: 595px;
+  /* to centre page on screen*/
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.panel-primary {
+    border-color: #005ea5;
+}
+
+.panel-primary > .panel-heading {
+    background-color: #005ea5 !important;
+    border-color: #005ea5 !important;
+}
