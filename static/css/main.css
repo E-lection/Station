@@ -35,3 +35,13 @@
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+.panel-primary {
+    border-color: #005ea5;
+}
+
+/* VOTER PIN CARD STUFF */
+.panel-primary > .panel-heading {
+    background-color: #005ea5 !important;
+    border-color: #005ea5 !important;
+}
