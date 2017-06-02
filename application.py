@@ -62,7 +62,7 @@ def login():
             user = User(user_id, username, station_id)
             login_user(user)
             flash('Logged in successfully.')
-            return redirect('station')
+            return redirect('')
         else:
             return abort(401)
     else:
@@ -93,13 +93,13 @@ def load_user(userid):
         return None
 
 # Once logged in successfully, use station app to search voter
-@application.route('/station', methods=['GET'])
+@application.route('/', methods=['GET'])
 @login_required
 def station():
     form = FindVoterForm(request.form)
     return render_template('station.html', form=form)
 
-@application.route('/station', methods=['POST'])
+@application.route('/', methods=['POST'])
 @login_required
 def find_voter():
     form = FindVoterForm(request.form)
