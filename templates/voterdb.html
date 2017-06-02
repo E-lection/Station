@@ -18,6 +18,7 @@ These are the voters with that name.
         <th>Firstname</th>
         <th>Lastname</th>
         <th>Address</th>
+        <th>Postcode</th>
         <th>D.O.B</th>
         <th></th>
       </tr>
@@ -28,7 +29,8 @@ These are the voters with that name.
         <tr>
             <td>{{voter.fields.first_name}}</td>
             <td>{{voter.fields.last_name}}</td>
-            <td>{{voter.fields.addr_line_1}}, {{voter.fields.addr_line_2}}, {{voter.fields.postcode}}</td>
+            <td>{{voter.fields.addr_line_1}} {% if voter.fields.addr_line_2 %} {{ voter.fields.addr_line_2 }} {% endif %}</td>
+            <td>{{voter.fields.postcode}}</td>
             <td>{{voter.fields.date_of_birth}}</td>
             <td>
               <button class="btn btn-primary voterdb-btn">Request PIN</button>
