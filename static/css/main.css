@@ -1,6 +1,7 @@
 /* NAVBAR STUFF */
-.navbar > .navbar-wrapper {
+.navbar > .content > .navbar-wrapper {
   margin: 0;
+  padding-left: 0px;
 }
 
 .navbar a.navbar-brand {
@@ -8,6 +9,10 @@
 	/*line-height: 28px;*/
 }
 
+.navbar-logo {
+  float: left;
+  height: 45px;
+}
 
 
 /* STATION FORM STUFF */
