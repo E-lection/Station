@@ -1,20 +1,33 @@
 # $ pip install --upgrade -r requirements.txt
 # $ python -m flask run
 
+import os
+import sqlite3
+
 from flask import Flask
 from flask import render_template
 from forms import FindVoterForm
 from flask import request
 import urllib, urllib2
 import json
+
 # Configuration. Example cases for TESTING
 FIRSTNAME = 'Jenny'
 POSTCODE = 'B91 3LH'
 SECRET_KEY = 'development key'
+
 TEMPLATES_AUTO_RELOAD = True
 
 application = Flask(__name__)
 application.config.from_object(__name__)
+
+application.config.update(DATABASE = os.path.join(application.root_path, 'flaskr.db'))
+
+def connect_db():
+    """Connects to the specific database."""
+    rv = sqlite3.connect(application.config['DATABASE'])
+    rv.row_factory = sqlite3.Row
+    return rv
 
 @application.route('/')
 def station():
@@ -53,3 +66,7 @@ def createSearchURL(firstname, postcode):
     postcode = "/postcode/" + urllib.quote(postcode)
     url = "http://voting.eelection.co.uk/get_voters/station_id/1"+firstname+postcode
     return url
+
+@application.route('/voterpincard')
+def voterpincard():
+    return render_template('voterpincard.html')
