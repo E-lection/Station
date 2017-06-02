@@ -16,11 +16,11 @@
   width: 60%;
   padding-bottom: 10px;
   line-height: 1.5;
-  font-size: 70%;
+  font-size: 30px;
 }
 
 .station-info-entry > p{
-  font-size: 55%;
+  font-size: 20px;
 }
 
 .form-control {
