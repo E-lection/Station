@@ -31,3 +31,7 @@
 .voterdb-btn {
   padding: 6px 12px 4px 12px;
 }
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
