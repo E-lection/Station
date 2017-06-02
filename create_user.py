@@ -4,12 +4,14 @@ import getpass
 
 def hash_password(password):
         return pwd_context.encrypt(password)
+
 def validate_station(station_id):
         try:
             station_id = int(station_id)
             return True
         except ValueError:
             return False
+
 def validate_username(username):
         return isinstance(username, str)
 

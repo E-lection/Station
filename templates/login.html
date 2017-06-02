@@ -13,6 +13,9 @@ You are the poll clerk.
 
 {% block body %}
   {{ super() }}
+  {% if message %}
+    <h3>{{ message }}</h3>
+  {% endif %}
     <form action="{{ url_for('login') }}" method="post" name="login">
       <div class="form-group station-login-entry">
         <label class="control-label" for="username">Username</label>

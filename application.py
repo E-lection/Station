@@ -16,8 +16,6 @@ import json
 import models as db
 from passlib.apps import custom_app_context as pwd_context
 # Configuration. Example cases for TESTING
-FIRSTNAME = 'Jenny'
-POSTCODE = 'B91 3LH'
 SECRET_KEY = 'development key'
 
 TEMPLATES_AUTO_RELOAD = True
@@ -42,31 +40,34 @@ class User(UserMixin):
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm(request.form)
     if request.method == 'POST':
+        form = LoginForm(request.form)
         username = request.form['username']
         password = request.form['password']
-        users = db.retrieveUsers()
-        valid = False
-        user_id = -1
-        station_id = -1
-        for user in users:
-            if user[1] == username:
-                password_hash = user[2]
-                if pwd_context.verify(password, password_hash):
-                    valid = True
-                    user_id = user[0]
-                    station_id = user[3]
-                break
-        if valid:
-            user = User(user_id, username, station_id)
+        valid_user = get_valid_user(username, password)
+        if valid_user:
+            user = User(valid_user[0], username, valid_user[1])
             login_user(user)
-            flash('Logged in successfully.')
             return redirect('')
         else:
-            return abort(401)
+            return render_template('login.html', message="Login unsuccessful.", form=form)
     else:
+        form = LoginForm(request.form)
         return render_template('login.html', form=form)
+
+def get_valid_user(username, password):
+    users = db.retrieveUsers()
+    user_id = -1
+    station_id = -1
+    for user in users:
+        if user[1] == username:
+            password_hash = user[2]
+            if pwd_context.verify(password, password_hash):
+                user_id = user[0]
+                station_id = user[3]
+                return (user_id, station_id)
+            break
+    return None
 
 @application.route("/logout")
 @login_required
