@@ -5,13 +5,16 @@
 }
 
 .navbar a.navbar-brand {
-	font-size: 30px;
-	/*line-height: 28px;*/
+  font-size: 32px;
+  font-weight: 500;
+  padding: 10px 10px;
 }
 
 .navbar-logo {
   float: left;
   height: 45px;
+  max-width: 100px;
+  padding: 2px;
 }
 
 
