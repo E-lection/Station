@@ -17,6 +17,11 @@
   padding: 2px;
 }
 
+/* FOOTER STUFF */
+.footer > .content {
+  padding-left: 30px;
+}
+
 
 /* STATION FORM STUFF */
 .station-info-entry {
@@ -34,6 +39,15 @@
 .form-control {
   font-size: 20px;
   height: 45px;
+  width: 500px;
+}
+
+.postcode {
+  width: 300px;
+}
+
+.form-login {
+  width: 400px;
 }
 
 /* VOTER TABLE STUFF */
