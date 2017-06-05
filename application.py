@@ -79,7 +79,7 @@ def logout():
 # handle login failed
 @application.errorhandler(401)
 def page_not_found(e):
-    return Response('<p>Login failed</p>')
+    return render_template('login.html', message="Login unsuccessful.", form=form)
 
 
 # callback to reload the user object
