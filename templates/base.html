@@ -35,19 +35,6 @@
         </div>
       </div>
     </section>
-    {# <!-- This is a general banner in light blue -->
-    <!-- <section class="container-fluid banner">
-      <div class="content">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="banner-message">
-              <h2>This is still beta <span class="phase-tag-beta">BETA</span></h2>
-              {% block body %}{% endblock %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> --> #}
 
     <section class="container-fluid">
       <div class="content">
@@ -70,13 +57,15 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/govstrap.js"></script>
     <script> $("table tr button").on('click', function(e){
+      var form = $(this).closest('form');
        var voterid = $(this).attr('id');
        $.ajax({
          type : 'POST',
-         url : "{{url_for('voterpincard')}}",
+         url : form.attr('action'),
          contentType: 'application/json;charset=UTF-8',
          data : voterid
-        });
-    }); </script>
+       }, 5000);
+    });
+    </script>
   </body>
 </html>

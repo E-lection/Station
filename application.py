@@ -24,6 +24,8 @@ TEMPLATES_AUTO_RELOAD = True
 application = Flask(__name__)
 application.config.from_object(__name__)
 
+# application.run(threaded = True)
+
 login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = "login"
@@ -120,6 +122,7 @@ def find_voter():
             return render_template('station.html', form=form)
     return render_template('station.html', form=form)
 
+# When the clerk clicks get pin for that voter
 @application.route('/voterpincard', methods=['POST'])
 @login_required
 def voterpincard():
@@ -133,7 +136,7 @@ def voterpincard():
         success = resultjson['success']
         voter_pin = resultjson['pin_code']
         print ("VOTER PIN IS " + str(voter_pin))
-        return str(voter_pin)
+        return render_template('voterpincard.html')
         # if success:
         #     # matching entry found
         #     return render_template('voterpincard.html', voter_pin=voter_pin)
