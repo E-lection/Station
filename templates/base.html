@@ -66,12 +66,10 @@
         </div>
       </div>
     </section>
-
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/govstrap.js"></script>
-    <script>
-    $("table tr button").on('click', function(e){
+    <script> $("table tr button").on('click', function(e){
        var voterid = $(this).attr('id');
        $.ajax({
          type : 'POST',
@@ -79,7 +77,6 @@
          contentType: 'application/json;charset=UTF-8',
          data : voterid
         });
-    });
-    </script>
+    }); </script>
   </body>
 </html>
