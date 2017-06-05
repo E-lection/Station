@@ -4,6 +4,7 @@
 from flask import Flask, Response, redirect, url_for, request, session, abort
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user
+import flask_login
 from flask import Flask
 from flask import render_template
 from forms import FindVoterForm
@@ -89,7 +90,7 @@ def load_user(userid):
     users_with_id = filter(lambda x: x[0] == int(userid), users)
     if users_with_id:
         user = users_with_id[0]
-        return User(user[0], user[1], user[2])
+        return User(user[0], user[1], user[3])
     else:
         return None
 
@@ -122,7 +123,7 @@ def find_voter():
     return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
-    station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
     url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
