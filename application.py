@@ -75,12 +75,10 @@ def logout():
     logout_user()
     return redirect('/login')
 
-
 # handle login failed
 @application.errorhandler(401)
 def page_not_found(e):
     return render_template('login.html', message="Login unsuccessful.", form=form)
-
 
 # callback to reload the user object
 @login_manager.user_loader
@@ -112,14 +110,28 @@ def find_voter():
         resultjson = json.loads(dbresult)
         success = resultjson['success']
         voters = resultjson['voters']
+        voterids = []
+        voterindex = 0
         if success:
             # matching entry found
-            return render_template('voterdb.html', voters=voters)
+            return render_template('voterdb.html', voters=voters, voterids=voterids, voterindex=voterindex)
         else:
             # no matching entry in database, try again
             return render_template('station.html', form=form)
-
     return render_template('station.html', form=form)
+
+# TODO: CHANGE THE HARDCODED ONE TO SAY THE STATION ID
+@application.route('/voterpincard', methods=['GET','POST'])
+def voterpincard():
+    voterid = None
+    if request.method == "POST":
+        voterid = request.data
+        url = createPinURL(voterid)
+        dbresult = urllib2.urlopen(url).read()
+        resultjson = json.loads(dbresult)
+        print resultjson
+        return render_template('voterpincard.html')
+    return render_template('voterdb.html')
 
 def createSearchURL(firstname, postcode):
     station_id = "/station_id/" + urllib.quote(current_user.station_id)
@@ -128,10 +140,11 @@ def createSearchURL(firstname, postcode):
     url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
     return url
 
-@application.route('/voterpincard')
-def voterpincard():
-    return render_template('voterpincard.html')
-
+def createPinURL(voter_id):
+    station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    voter_id = "/voter_id/" + urllib.quote(voter_id)
+    url = "http://voting.eelection.co.uk/get_pin_code" + station_id + voter_id
+    return url
 
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
