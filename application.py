@@ -98,6 +98,7 @@ def station():
     form = FindVoterForm(request.form)
     return render_template('station.html', form=form)
 
+# When the clerk clicks search for voter
 @application.route('/', methods=['POST'])
 @login_required
 def find_voter():
@@ -110,18 +111,16 @@ def find_voter():
         resultjson = json.loads(dbresult)
         success = resultjson['success']
         voters = resultjson['voters']
-        voterids = []
-        voterindex = 0
         if success:
             # matching entry found
-            return render_template('voterdb.html', voters=voters, voterids=voterids, voterindex=voterindex)
+            return render_template('voterdb.html', voters=voters)
         else:
             # no matching entry in database, try again
             return render_template('station.html', form=form)
     return render_template('station.html', form=form)
 
-# TODO: CHANGE THE HARDCODED ONE TO SAY THE STATION ID
-@application.route('/voterpincard', methods=['GET','POST'])
+@application.route('/voterpincard', methods=['POST'])
+@login_required
 def voterpincard():
     voterid = None
     if request.method == "POST":
@@ -129,21 +128,32 @@ def voterpincard():
         url = createPinURL(voterid)
         dbresult = urllib2.urlopen(url).read()
         resultjson = json.loads(dbresult)
-        print resultjson
-        return render_template('voterpincard.html')
-    return render_template('voterdb.html')
+        # Returned as {u'success': True, u'pin_code': 170864}
+        success = resultjson['success']
+        voter_pin = resultjson['pin_code']
+        print ("VOTER PIN IS " + str(voter_pin))
+        return str(voter_pin)
+        # if success:
+        #     # matching entry found
+        #     return render_template('voterpincard.html', voter_pin=voter_pin)
+        # else:
+        #     # no matching entry in database, try again
+        #     return render_template('station.html', form=form)
+    return "fukd"
 
 def createSearchURL(firstname, postcode):
-    station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    #station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    station_id = "/station_id/" + "1"
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
     url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
     return url
 
 def createPinURL(voter_id):
-    station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    #station_id = "/station_id/" + urllib.quote(current_user.station_id)
+    station_id = "/station_id/" + "1"
     voter_id = "/voter_id/" + urllib.quote(voter_id)
-    url = "http://voting.eelection.co.uk/get_pin_code" + station_id + voter_id
+    url = "http://pins.eelection.co.uk/get_pin_code" + station_id + voter_id
     return url
 
 if __name__ == "__main__":
