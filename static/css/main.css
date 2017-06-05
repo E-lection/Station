@@ -58,3 +58,11 @@
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+.table > thead > tr {
+  font-size: 18px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
