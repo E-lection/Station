@@ -122,9 +122,10 @@ def find_voter():
     return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
+    station_id = "/station_id/" + urllib.quote(current_user.station_id)
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
-    url = "http://voting.eelection.co.uk/get_voters/station_id/1"+firstname+postcode
+    url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
     return url
 
 @application.route('/voterpincard')
