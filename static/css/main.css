@@ -49,6 +49,11 @@
   font-size: 20px;
 }
 
+
+.find-voter-form > .form-group > .has-errors {
+    border: 2px solid #ff0000 !important;
+}
+
 .form-control {
   font-size: 20px;
   height: 45px;
@@ -62,7 +67,6 @@
 .form-login {
   width: 400px;
 }
-
 /* VOTER TABLE STUFF */
 .voterdb-btn {
   padding: 6px 12px 4px 12px;

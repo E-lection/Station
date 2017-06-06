@@ -24,8 +24,6 @@ TEMPLATES_AUTO_RELOAD = True
 application = Flask(__name__)
 application.config.from_object(__name__)
 
-# application.run(threaded = True)
-
 login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = "login"
@@ -107,6 +105,7 @@ def station():
 def find_voter():
     form = FindVoterForm(request.form)
     if form.validate_on_submit():
+        print "Valid form u good"
         firstname = request.form['firstname']
         postcode = request.form['postcode']
         url = createSearchURL(firstname, postcode)
@@ -120,7 +119,9 @@ def find_voter():
         else:
             # no matching entry in database, try again
             return render_template('station.html', form=form)
-    return render_template('station.html', form=form)
+    else:
+        # This means they have submitted an invalid form
+        return render_template('station.html', form=form)
 
 # When the clerk clicks get pin for that voter
 @application.route('/voterpincard', methods=['POST'])
