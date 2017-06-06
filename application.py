@@ -2,9 +2,9 @@
 # $ python -m flask run
 
 from flask import Flask, Response, redirect, url_for, request, session, abort
-from flask.ext.login import LoginManager, UserMixin, \
-                                login_required, login_user, logout_user
 import flask_login
+from flask_login import LoginManager, UserMixin, \
+                                login_required, login_user, logout_user
 from flask import Flask
 from flask import render_template
 from forms import FindVoterForm
