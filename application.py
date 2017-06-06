@@ -128,22 +128,26 @@ def find_voter():
 def voterpincard():
     voterid = None
     if request.method == "POST":
-        voterid = request.data
-        url = createPinURL(voterid)
-        dbresult = urllib2.urlopen(url).read()
-        resultjson = json.loads(dbresult)
-        # Returned as {u'success': True, u'pin_code': 170864}
-        success = resultjson['success']
-        voter_pin = resultjson['pin_code']
-        print ("VOTER PIN IS " + str(voter_pin))
-        return render_template('voterpincard.html')
-        # if success:
-        #     # matching entry found
-        #     return render_template('voterpincard.html', voter_pin=voter_pin)
-        # else:
-        #     # no matching entry in database, try again
-        #     return render_template('station.html', form=form)
-    return "fukd"
+        # Voter id is the name of the only button in the form
+        voterid = 0
+        for form_vote_id, button_name in request.form.iteritems():
+            if button_name == 'Request PIN':
+                voterid = form_vote_id
+
+        # If there was a voterid, get a pin and return the pin card
+        if voterid is not 0:
+            url = createPinURL(voterid)
+            dbresult = urllib2.urlopen(url).read()
+            print dbresult
+            resultjson = json.loads(dbresult)
+            # Returned as {u'success': True, u'pin_code': 170864}
+            success = resultjson['success']
+            voter_pin = resultjson['pin_code']
+            if success:
+                # matching entry found
+                return render_template('voterpincard.html', voter_pin=voter_pin)
+
+        return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))

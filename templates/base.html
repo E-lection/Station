@@ -56,16 +56,5 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/govstrap.js"></script>
-    <script> $("table tr button").on('click', function(e){
-      var form = $(this).closest('form');
-       var voterid = $(this).attr('id');
-       $.ajax({
-         type : 'POST',
-         url : form.attr('action'),
-         contentType: 'application/json;charset=UTF-8',
-         data : voterid
-       }, 5000);
-    });
-    </script>
   </body>
 </html>

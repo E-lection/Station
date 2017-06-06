@@ -13,7 +13,7 @@ These are the voters with that name and postcode.
 
 {% block body %}
   {{ super() }}
-  <form action="{{ url_for('voterpincard') }}" id="form-voter-pin" method="post" name="form-voter-pin">
+  <form action="{{ url_for('voterpincard') }}" method="post">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -35,7 +35,7 @@ These are the voters with that name and postcode.
               <td>{{voter.fields.postcode}}</td>
               <td>{{voter.fields.date_of_birth[8:10]}}/{{voter.fields.date_of_birth[5:7]}}/{{voter.fields.date_of_birth[:4]}}</td>
               <td>
-                <button class="btn btn-primary voterdb-btn" type="submit" name="btn-voter-pin" id="{{ voter.pk }}">Request PIN</button>
+                <input class="btn btn-primary voterdb-btn" type="submit" name="{{ voter.pk }}" value="Request PIN" />
               </td>
           </tr>
           {% endfor %}
