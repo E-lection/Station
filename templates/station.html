@@ -12,7 +12,7 @@
 
 {% block body %}
   {{ super() }}
-  <form action="{{ url_for('station') }}" method="post" name="find-voter">
+  <form action="{{ url_for('station') }}" class="find-voter-form" method="post" name="find-voter">
     <div class="form-group station-info-entry">
       <label class="control-label" for="userName">First name(s)</label>
       <input type="text" class="form-control" name="firstname">

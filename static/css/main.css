@@ -22,6 +22,11 @@
   padding-left: 30px;
 }
 
+/* CLERK LOGIN STUFF */
+.clerk-login-form > button{
+  font-size: 18px;
+}
+
 
 /* STATION FORM STUFF */
 .station-info-entry {
@@ -30,6 +35,14 @@
   padding-bottom: 10px;
   line-height: 1.5;
   font-size: 30px;
+}
+
+.station-info-entry > label{
+  font-size: 25px;
+}
+
+.find-voter-form > button{
+  font-size: 18px;
 }
 
 .station-info-entry > p{
