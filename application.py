@@ -13,6 +13,10 @@ from flask import request
 from flask import flash
 import urllib, urllib2
 import json
+import pdfs
+import xhtml2pdf
+from xhtml2pdf import pisa
+from flask import send_file
 
 import models as db
 from passlib.apps import custom_app_context as pwd_context
@@ -139,16 +143,23 @@ def voterpincard():
         if voterid is not 0:
             url = createPinURL(voterid)
             dbresult = urllib2.urlopen(url).read()
-            print dbresult
             resultjson = json.loads(dbresult)
             # Returned as {u'success': True, u'pin_code': 170864}
             success = resultjson['success']
             voter_pin = resultjson['pin_code']
             if success:
-                # matching entry found
-                return render_template('voterpincard.html', voter_pin=voter_pin)
-
-        return render_template('station.html', form=form)
+                # now we need to get the pdf for that voter
+                filename = "test.pdf"
+                voter_pin_pdf = pdfs.create_pdf(filename, voter_pin)
+                if not voter_pin_pdf.err:
+                    # open(filename, "wb")
+                    # pisa.startViewer(filename)
+                    return send_file(filename, as_attachment=True)
+            else:
+                return "Could not get pin for that person."
+        else:
+            form = FindVoterForm(request.form)
+            return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
