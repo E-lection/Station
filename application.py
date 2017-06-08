@@ -32,6 +32,9 @@ login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = "login"
 
+SEARCH_VOTER_URL = "http://voting.eelection.co.uk/get_voters"
+PIN_URL = "http://pins.eelection.co.uk/get_pin_code"
+
 # User model
 class User(UserMixin):
 
@@ -109,7 +112,6 @@ def station():
 def find_voter():
     form = FindVoterForm(request.form)
     if form.validate_on_submit():
-        print "Valid form u good"
         firstname = request.form['firstname']
         postcode = request.form['postcode']
         url = createSearchURL(firstname, postcode)
@@ -120,12 +122,10 @@ def find_voter():
         if success:
             # matching entry found
             return render_template('voterdb.html', voters=voters)
-        else:
-            # no matching entry in database, try again
-            return render_template('station.html', form=form)
-    else:
-        # This means they have submitted an invalid form
+        # no matching entry in database, try again
         return render_template('station.html', form=form)
+    # This means they have submitted an invalid form
+    return render_template('station.html', form=form)
 
 # When the clerk clicks get pin for that voter
 @application.route('/voterpincard', methods=['POST'])
@@ -165,13 +165,13 @@ def createSearchURL(firstname, postcode):
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
-    url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
+    url = SEARCH_VOTER_URL +station_id + firstname + postcode
     return url
 
 def createPinURL(voter_id):
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
     voter_id = "/voter_id/" + urllib.quote(voter_id)
-    url = "http://pins.eelection.co.uk/get_pin_code" + station_id + voter_id
+    url = PIN_URL + station_id + voter_id
     return url
 
 if __name__ == "__main__":

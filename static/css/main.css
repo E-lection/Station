@@ -51,7 +51,7 @@ form > .station-info-entry {
 
 
 .find-voter-form > .form-group > .has-errors {
-    border: 2px solid #ff0000 !important;
+    border: 2px solid #ff0000;
 }
 
 .form-control {

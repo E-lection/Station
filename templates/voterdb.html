@@ -3,7 +3,6 @@
 
 {% block head %}
   {{ super() }}
-  <script type="text/javascript" src="{{ url_for('static', filename='station.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -42,4 +41,9 @@ These are the voters with that name and postcode.
       </tbody>
     </table>
   </form>
+{% endblock %}
+
+{% block footer %}
+  {{ super() }}
+  <script type="text/javascript" src="{{ url_for('static', filename='station.js') }}"></script>
 {% endblock %}
