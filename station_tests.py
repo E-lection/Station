@@ -14,6 +14,7 @@ class StationTestCase(unittest.TestCase):
 
     def setUp(self):
         application.application.config['TESTING'] = True
+        application.application.config['WTF_CSRF_ENABLED'] = False
         self.application = application.application.test_client()
         create_user.create_user(TEST_USERNAME, TEST_PASSWORD, 1)
     def tearDown(self):
@@ -31,7 +32,7 @@ class StationTestCase(unittest.TestCase):
         return self.application.post('/login', data=dict(
             username=username,
             password=password
-        ))
+        ), follow_redirects=True)
 
     # Test for error code 302 when you're not logged in
     def test_home_status_code_not_logged_in(self):
@@ -68,17 +69,27 @@ class StationTestCase(unittest.TestCase):
         result = self.application.get('/')
         assert b'First name(s)' and b'Postcode' in result.data
 
-    # Tests that it asks for a first name
-    def test_firstname_field_loaded(self):
+    # Tests that it flags up an invalid first name
+    def test_invalid_first_name(self):
         self.login(TEST_USERNAME, TEST_PASSWORD)
-        result = self.application.get('/')
-        assert b'First name(s)' in result.data
+        result = self.find_voter('James9', 'SW7 1BE')
+        assert b'Error! Invalid first name entered.' in result.data
 
-    # Tests that it asks for a postcode
-    def test_postcode_field_loaded(self):
+    # Tests that it flags up an invalid postcode
+    def test_invalid_postcode(self):
         self.login(TEST_USERNAME, TEST_PASSWORD)
-        result = self.application.get('/')
-        assert b'Postcode' in result.data
+        result = self.find_voter('James', 'SW7 666')
+        assert b'Error! Invalid postcode entered.' in result.data
+
+    # Tests that it goes to the database view when a valid first
+    # name and postcode is entered
+    # def test_valid_voter_search(self):
+    #     self.login(TEST_USERNAME, TEST_PASSWORD)
+    #     voter_name = 'James'
+    #     voter_postcode = 'SW7 1BE'
+    #     self.find_voter(voter_name, voter_postcode)
+    #     print result.data
+    #     assert voter_name and voter_postcode and b'Request PIN' in result.data
 
 if __name__ == '__main__':
     unittest.main()
