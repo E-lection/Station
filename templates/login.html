@@ -15,7 +15,7 @@
   {% if message %}
     <h3>{{ message }}</h3>
   {% endif %}
-    <form action="{{ url_for('login') }}" method="post" name="login" autocomplete="off">
+    <form action="{{ url_for('login') }}" class="clerk-login-form" method="post" name="login" autocomplete="off">
       <div class="form-group station-info-entry">
         <label class="control-label" for="username">Username</label>
         <input type="text" class="form-control form-login" name="username">

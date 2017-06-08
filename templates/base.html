@@ -35,19 +35,6 @@
         </div>
       </div>
     </section>
-    {# <!-- This is a general banner in light blue -->
-    <!-- <section class="container-fluid banner">
-      <div class="content">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="banner-message">
-              <h2>This is still beta <span class="phase-tag-beta">BETA</span></h2>
-              {% block body %}{% endblock %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> --> #}
 
     <section class="container-fluid">
       <div class="content">
@@ -66,9 +53,11 @@
         </div>
       </div>
     </section>
+  </body>
 
+  {% block footer %}
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/govstrap.js"></script>
-  </body>
+  {% endblock %}
 </html>

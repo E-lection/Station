@@ -13,6 +13,10 @@ from flask import request
 from flask import flash
 import urllib, urllib2
 import json
+import pdfs
+import xhtml2pdf
+from xhtml2pdf import pisa
+from flask import send_file
 
 import models as db
 from passlib.apps import custom_app_context as pwd_context
@@ -27,6 +31,9 @@ application.config.from_object(__name__)
 login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = "login"
+
+SEARCH_VOTER_URL = "http://voting.eelection.co.uk/get_voters"
+PIN_URL = "http://pins.eelection.co.uk/get_pin_code"
 
 # User model
 class User(UserMixin):
@@ -76,12 +83,10 @@ def logout():
     logout_user()
     return redirect('/login')
 
-
 # handle login failed
 @application.errorhandler(401)
 def page_not_found(e):
     return render_template('login.html', message="Login unsuccessful.", form=form)
-
 
 # callback to reload the user object
 @login_manager.user_loader
@@ -101,6 +106,7 @@ def station():
     form = FindVoterForm(request.form)
     return render_template('station.html', form=form)
 
+# When the clerk clicks search for voter
 @application.route('/', methods=['POST'])
 @login_required
 def find_voter():
@@ -116,23 +122,57 @@ def find_voter():
         if success:
             # matching entry found
             return render_template('voterdb.html', voters=voters)
-        else:
-            # no matching entry in database, try again
-            return render_template('station.html', form=form)
-
+        # no matching entry in database, try again
+        return render_template('station.html', form=form)
+    # This means they have submitted an invalid form
     return render_template('station.html', form=form)
+
+# When the clerk clicks get pin for that voter
+@application.route('/voterpincard', methods=['POST'])
+@login_required
+def voterpincard():
+    voterid = None
+    if request.method == "POST":
+        # Voter id is the name of the only button in the form
+        voterid = 0
+        for form_vote_id, button_name in request.form.iteritems():
+            if button_name == 'Request PIN':
+                voterid = form_vote_id
+
+        # If there was a voterid, get a pin and return the pin card
+        if voterid is not 0:
+            url = createPinURL(voterid)
+            dbresult = urllib2.urlopen(url).read()
+            resultjson = json.loads(dbresult)
+            # Returned as {u'success': True, u'pin_code': 170864}
+            success = resultjson['success']
+            voter_pin = resultjson['pin_code']
+            if success:
+                # now we need to get the pdf for that voter
+                filename = "test.pdf"
+                voter_pin_pdf = pdfs.create_pdf(filename, voter_pin)
+                if not voter_pin_pdf.err:
+                    # open(filename, "wb")
+                    # pisa.startViewer(filename)
+                    return send_file(filename, as_attachment=True)
+            else:
+                return "Could not get pin for that person."
+        else:
+            form = FindVoterForm(request.form)
+            return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
-    url = "http://voting.eelection.co.uk/get_voters"+station_id+firstname+postcode
+    url = SEARCH_VOTER_URL +station_id + firstname + postcode
     return url
 
-@application.route('/voterpincard')
-def voterpincard():
-    return render_template('voterpincard.html')
-
+def createPinURL(voter_id):
+    station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
+    voter_id = "/voter_id/" + urllib.quote(voter_id)
+    url = PIN_URL + station_id + voter_id
+    return url
 
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
