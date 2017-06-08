@@ -64,7 +64,8 @@ class StationTestCase(unittest.TestCase):
     # Test that logging in with correct credentials
     # takes you to the search voter page
     def test_correct_login(self):
-        result = self.login(BAD_LOGIN, BAD_LOGIN)
+        self.login(TEST_USERNAME, TEST_PASSWORD)
+        result = self.application.get('/')
         assert b'First name(s)' and b'Postcode' in result.data
 
     # Tests that it asks for a first name
