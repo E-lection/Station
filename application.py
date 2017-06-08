@@ -148,6 +148,9 @@ def voterpincard():
             success = resultjson['success']
             voter_pin = resultjson['pin_code']
             if success:
+                # html template being rendered until the pdfs work properly
+                return render_template('voterpincard.html', voter_pin=voter_pin)
+
                 # now we need to get the pdf for that voter
                 filename = "test.pdf"
                 voter_pin_pdf = pdfs.create_pdf(filename, voter_pin)
