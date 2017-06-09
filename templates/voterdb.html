@@ -27,6 +27,7 @@ These are the voters with that name and postcode.
       <tbody>
           <!--repeat this table row for each item in items-->
           {% for voter in voters %}
+
           <tr>
               <td>{{voter.fields.first_name}}</td>
               <td>{{voter.fields.last_name}}</td>
@@ -34,7 +35,11 @@ These are the voters with that name and postcode.
               <td>{{voter.fields.postcode}}</td>
               <td>{{voter.fields.date_of_birth[8:10]}}/{{voter.fields.date_of_birth[5:7]}}/{{voter.fields.date_of_birth[:4]}}</td>
               <td>
+                {% if not voter.fields.used_vote %}
                 <input class="btn btn-primary voterdb-btn" type="submit" name="{{ voter.pk }}" value="Request PIN" />
+                {% else %}
+                <input class="btn btn-primary voterdb-btn-dead" type="submit" name="{{ voter.pk }}" value="Already Voted" disabled />
+                {% endif %}
               </td>
           </tr>
           {% endfor %}
