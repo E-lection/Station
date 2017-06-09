@@ -6,3 +6,6 @@ flask-login
 passlib==1.7.1
 xhtml2pdf
 html5lib==1.0b8
+jinja2
+pdflatex
+pexpect
