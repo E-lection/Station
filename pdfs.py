@@ -1,4 +1,3 @@
-from xhtml2pdf import pisa
 from StringIO import StringIO
 from flask import render_template
 
@@ -13,9 +12,9 @@ def create_pdf(filename, voter_pin):
     #
     # # close output file
     # resultFile.close()                 # close output file
-    pdf = pisa.CreatePDF(
-        render_template('voterpincard.html'),
-        file(filename, "wb")
-        )
+    # pdf = pisa.CreatePDF(
+    #     render_template('voterpincard.html'),
+    #     file(filename, "wb")
+    #     )
     # return True on success and False on errors
     return pdf

@@ -14,8 +14,6 @@ from flask import flash
 import urllib, urllib2
 import json
 import pdfs
-import xhtml2pdf
-from xhtml2pdf import pisa
 from flask import send_file
 
 import models as db
