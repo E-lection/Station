@@ -24,9 +24,11 @@
 
 /* ERROR BAR STUFF */
 .error-banner {
-  background-color: red;
-  margin-top: -10px;
-  display: none;
+    background-color: #e02a2a;
+    margin-top: -10px;
+    display: block;
+    color: white;
+    padding: 0px;
 }
 
 /* CLERK LOGIN STUFF */
