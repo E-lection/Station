@@ -7,7 +7,12 @@
 
 {% block content %}
   {{ super() }}
-These are the voters with that name and postcode.
+  These are the voters with that name and postcode.
+{% endblock %}]
+
+{% block message %}
+  {{ super() }}
+  {{ error_message }}
 {% endblock %}
 
 {% block body %}
