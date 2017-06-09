@@ -5,7 +5,6 @@ from flask import Flask, Response, redirect, url_for, request, session, abort
 import flask_login
 from flask_login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user
-from flask import Flask
 from flask import render_template
 from forms import FindVoterForm
 from forms import LoginForm
@@ -14,7 +13,6 @@ from flask import flash
 import urllib, urllib2
 import json
 import pdfs
-from flask import send_file
 
 import models as db
 from passlib.apps import custom_app_context as pwd_context
@@ -142,20 +140,11 @@ def voterpincard():
             url = createPinURL(voterid)
             dbresult = urllib2.urlopen(url).read()
             resultjson = json.loads(dbresult)
-            # Returned as {u'success': True, u'pin_code': 170864}
             success = resultjson['success']
             voter_pin = resultjson['pin_code']
             if success:
-                # html template being rendered until the pdfs work properly
-                return render_template('voterpincard.html', voter_pin=voter_pin)
-
-                # now we need to get the pdf for that voter
-                filename = "test.pdf"
-                voter_pin_pdf = pdfs.create_pdf(filename, voter_pin)
-                if not voter_pin_pdf.err:
-                    # open(filename, "wb")
-                    # pisa.startViewer(filename)
-                    return send_file(filename, as_attachment=True)
+                # Get the pin card pdf for that voter
+                return pdfs.create_pdf(voter_pin)
             else:
                 return "Could not get pin for that person."
         else:
