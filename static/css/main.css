@@ -74,8 +74,8 @@ form > .station-info-entry {
 }
 
 .voterdb-btn-dead {
-  background-color: #FF0000;
-  border-color: #EE0000;
+  background-color: #e80000;
+  border-color: rgba(0, 0, 0, 0);
   padding: 6px 12px 4px 12px;
 }
 
