@@ -70,11 +70,12 @@ form > .station-info-entry {
 /* VOTER TABLE STUFF */
 .voterdb-btn {
   padding: 6px 12px 4px 12px;
+  width: 124px;
 }
 
 .voterdb-btn-dead {
-  background-color: #DC143C;
-  border-color: #B0171F;
+  background-color: #FF0000;
+  border-color: #EE0000;
   padding: 6px 12px 4px 12px;
 }
 
