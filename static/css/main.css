@@ -22,6 +22,15 @@
   padding-left: 30px;
 }
 
+/* ERROR BAR STUFF */
+.error-banner {
+    background-color: #e02a2a;
+    margin-top: -10px;
+    display: block;
+    color: white;
+    padding: 0px;
+}
+
 /* CLERK LOGIN STUFF */
 .clerk-login-form > button{
   font-size: 18px;
