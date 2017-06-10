@@ -119,9 +119,9 @@ def find_voter():
             # matching entry found
             return render_template('voterdb.html', voters=voters)
         # no matching entry in database, try again
-        return render_template('station.html', form=form)
+        return render_template('station.html', form=form, message="No matching entry found. Please try again.")
     # This means they have submitted an invalid form
-    return render_template('station.html', form=form)
+    return render_template('station.html', form=form, message="Invalid form submitted. Please try again.")
 
 # When the clerk clicks get pin for that voter
 @application.route('/voterpincard', methods=['POST'])
@@ -152,6 +152,11 @@ def voterpincard():
             return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
+    firstname = firstname.strip()
+    postcode = postcode.strip()
+    # Add a space 3 characters from the end of the postcode if one doesn't exist
+    if postcode[len(postcode)-4] != ' ':
+        postcode = postcode[:len(postcode)-3] + ' ' + postcode[len(postcode)-3:]
     station_id = "/station_id/" + urllib.quote(str(flask_login.current_user.station_id))
     firstname = "/voter_name/" + urllib.quote(firstname)
     postcode = "/postcode/" + urllib.quote(postcode)
