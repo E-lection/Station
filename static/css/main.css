@@ -23,10 +23,12 @@
 }
 
 /* ERROR BAR STUFF */
-.error-banner {
-  background-color: red;
+.error-banner { 
+  background-color: #e02a2a;
   margin-top: -10px;
-  display: none;
+  display: block;
+  color: white;
+  padding: 0px;
 }
 
 /* CLERK LOGIN STUFF */
@@ -76,6 +78,13 @@ form > .station-info-entry {
 }
 /* VOTER TABLE STUFF */
 .voterdb-btn {
+  padding: 6px 12px 4px 12px;
+  width: 124px;
+}
+
+.voterdb-btn-dead {
+  background-color: #e80000;
+  border-color: rgba(0, 0, 0, 0);
   padding: 6px 12px 4px 12px;
 }
 
