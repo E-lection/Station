@@ -1,3 +1,7 @@
+html {
+	background-color: #ffffff;
+}
+
 /* NAVBAR STUFF */
 .navbar > .content > .navbar-wrapper {
   margin: 0;
@@ -18,12 +22,21 @@
 }
 
 /* FOOTER STUFF */
+.footer {
+    border-top: 5px solid #005ea5;
+    background-color: #dee0e2;
+    min-height: 0px;
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
 .footer > .content {
   padding-left: 30px;
 }
 
 /* ERROR BAR STUFF */
-.error-banner { 
+.error-banner {
   background-color: #e02a2a;
   margin-top: -10px;
   display: block;
