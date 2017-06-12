@@ -42,6 +42,8 @@
               <td>
                 {% if not voter.fields.used_vote %}
                 <input class="btn btn-primary voterdb-btn" type="submit" name="{{ voter.pk }}" value="Request PIN" />
+                {% elif voter.fields.active %}
+                <input class="btn btn-primary voterdb-btn-active" type="submit" name="{{ voter.pk }}" value="New PIN" />
                 {% else %}
                 <input class="btn btn-primary voterdb-btn-dead" type="submit" name="{{ voter.pk }}" value="Already Voted" disabled />
                 {% endif %}

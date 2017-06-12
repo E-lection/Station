@@ -95,6 +95,13 @@ form > .station-info-entry {
   width: 124px;
 }
 
+.voterdb-btn-active {
+  background-color: #ed571c;
+  border-color: #ed571c;
+  padding: 6px 12px 4px 12px;
+  width:124px;
+}
+
 .voterdb-btn-dead {
   background-color: #e80000;
   border-color: rgba(0, 0, 0, 0);
