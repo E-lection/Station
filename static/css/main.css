@@ -21,6 +21,10 @@ html {
   padding: 2px;
 }
 
+.hero-banner {
+    padding-bottom: 0px;
+}
+
 /* FOOTER STUFF */
 .footer {
     border-top: 5px solid #005ea5;
@@ -42,6 +46,11 @@ html {
   display: block;
   color: white;
   padding: 0px;
+}
+
+.error-banner > .content > .row {
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 /* CLERK LOGIN STUFF */
