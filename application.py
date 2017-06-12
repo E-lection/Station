@@ -151,7 +151,7 @@ def voterpincard():
                 # Must go back to voter database page_not_found
                 error_message = "Could not find PIN for that voter. Try again."
                 if voters in session:
-                    return render_template('voterdb.html', voters=session['voters'], error_message=error_message)
+                    return render_template('voterdb.html', voters=session['voters'], message=error_message)
         form = FindVoterForm(request.form)
         return render_template('station.html', form=form)
 

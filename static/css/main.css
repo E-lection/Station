@@ -58,6 +58,12 @@ html {
   font-size: 18px;
 }
 
+/* BOOTH LOGIN */
+.station-info-entry > .form-control {
+    font-size: 20px;
+    height: 50px;
+    width: 300px;
+}
 
 /* STATION FORM STUFF */
 form > .station-info-entry {

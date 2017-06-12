@@ -13,16 +13,20 @@
 {% block body %}
   {{ super() }}
   <form action="{{ url_for('station') }}" class="find-voter-form" method="post" name="find-voter">
-    <div class="form-group station-info-entry">
-      <label class="control-label" for="userName">First name(s)</label>
-      <input type="text" class="form-control {% if form.firstname.errors[0] %}has-errors{% endif %}" name="firstname">
-      <p class="help-block">Forename name registered to vote. <b>{{ form.firstname.errors[0] }} </b></p>
+    <div class="col-sm-6">
+      <div class="form-group station-info-entry">
+        <label class="control-label" for="userName">First name(s)</label>
+        <input type="text" class="form-control {% if form.firstname.errors[0] %}has-errors{% endif %}" name="firstname">
+        <p class="help-block">Forename name registered to vote. <b>{{ form.firstname.errors[0] }} </b></p>
+      </div>
     </div>
-    <div class="form-group station-info-entry">
-      <label class="control-label" for="userName">Postcode</label>
-      <input type="text" class="form-control postcode {% if form.postcode.errors[0] %}has-errors{% endif %}" name="postcode">
-      <p class="help-block">You know what a postcode is. <b>{{ form.postcode.errors[0] }}</b></p>
-    </div>
+    <div class="col-sm-6">
+      <div class="form-group station-info-entry">
+        <label class="control-label" for="userName">Postcode</label>
+        <input type="text" class="form-control postcode {% if form.postcode.errors[0] %}has-errors{% endif %}" name="postcode">
+        <p class="help-block">You know what a postcode is. <b>{{ form.postcode.errors[0] }}</b></p>
+      </div>
+    </div>  
     {{ form.csrf_token }}
     <button class="btn btn-primary btn-start" type="submit" value="Search for voter" name="voter-search">Search voter database</button>
 
