@@ -109,7 +109,13 @@ form > .station-info-entry {
 .form-login {
   width: 400px;
 }
+
 /* VOTER TABLE STUFF */
+.voter-db-form {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .voterdb-btn {
   padding: 6px 12px 4px 12px;
   width: 124px;
