@@ -135,13 +135,11 @@ def voterpincard():
         # Voter id is the name of the only button in the form
         voterid = 0
         for form_vote_id, button_name in request.form.iteritems():
-            if button_name == 'Request PIN':
+            if button_name == 'Request PIN' or button_name == 'New PIN':
                 voterid = form_vote_id
-
         # If there was a voterid, get a pin and return the pin card
         if voterid is not 0:
             url = createPinURL(voterid)
-            print url
             dbresult = urllib2.urlopen(url).read()
             resultjson = json.loads(dbresult)
             success = resultjson['success']
