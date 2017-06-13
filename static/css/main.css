@@ -1,3 +1,7 @@
+html {
+	background-color: #ffffff;
+}
+
 /* NAVBAR STUFF */
 .navbar > .content > .navbar-wrapper {
   margin: 0;
@@ -17,18 +21,36 @@
   padding: 2px;
 }
 
+.hero-banner {
+    padding-bottom: 0px;
+}
+
 /* FOOTER STUFF */
+.footer {
+    border-top: 5px solid #005ea5;
+    background-color: #dee0e2;
+    min-height: 0px;
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
 .footer > .content {
   padding-left: 30px;
 }
 
 /* ERROR BAR STUFF */
 .error-banner {
-    background-color: #e02a2a;
-    margin-top: -10px;
-    display: block;
-    color: white;
-    padding: 0px;
+  background-color: #e02a2a;
+  margin-top: -10px;
+  display: block;
+  color: white;
+  padding: 0px;
+}
+
+.error-banner > .content > .row {
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 /* CLERK LOGIN STUFF */
@@ -80,6 +102,24 @@ form > .station-info-entry {
 .voterdb-btn {
   padding: 6px 12px 4px 12px;
   width: 124px;
+}
+
+.voterdb-btn-active {
+  background-color: #ed571c;
+  border-color: #ed571c;
+	-webkit-box-shadow: 0 2px 0 #b64316;
+  -moz-box-shadow: 0 2px 0 #b64316;
+  box-shadow: 0 2px 0 #b64316;
+  padding: 6px 12px 4px 12px;
+  width:124px;
+}
+
+.voterdb-btn-active:hover {
+	color: #fff;
+	border: 3px solid #b64316;
+}
+.voterdb-btn-active:hover {
+	background-color: #b64316;
 }
 
 .voterdb-btn-dead {

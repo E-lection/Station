@@ -36,12 +36,12 @@
       </div>
     </section>
 
-    {% if error %}
+    {% if message %}
     <section class="container-fluid error-banner">
       <div class="content">
         <div class="row">
           <div class="col-sm-12">
-              <h3>Error: {% block message %}{% endblock %}</h3>
+              <h3>Error: {% block error %}{{ message }}{% endblock %}</h3>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
       </div>
     </section>
 
-    <section class="container-fluid footer">
+    <section class="navbar navbar-fixed-bottom footer">
       <div class="content">
         <div class="row footer-bottom">
           Coming soon to a polling station near you...

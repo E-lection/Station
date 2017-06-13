@@ -115,6 +115,7 @@ def find_voter():
         resultjson = json.loads(dbresult)
         success = resultjson['success']
         voters = resultjson['voters']
+        session['voters'] = voters
         if success:
             # matching entry found
             return render_template('voterdb.html', voters=voters)
@@ -146,10 +147,12 @@ def voterpincard():
                 # Get the pin card pdf for that voter
                 return pdfs.create_pdf(voter_pin)
             else:
-                return "Could not get pin for that person."
-        else:
-            form = FindVoterForm(request.form)
-            return render_template('station.html', form=form)
+                # Must go back to voter database page_not_found
+                error_message = "Could not find PIN for that voter. Try again."
+                if voters in session:
+                    return render_template('voterdb.html', voters=session['voters'], error_message=error_message)
+        form = FindVoterForm(request.form)
+        return render_template('station.html', form=form)
 
 def createSearchURL(firstname, postcode):
     firstname = firstname.strip()
