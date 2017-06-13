@@ -82,7 +82,7 @@ class StationTestCase(unittest.TestCase):
         assert b'Error! Invalid postcode entered.' in result.data
 
     # Tests that it goes to the database view when a valid first
-    name and postcode is entered
+    # name and postcode is entered
     def test_valid_voter_search(self):
         self.login(TEST_USERNAME, TEST_PASSWORD)
         voter_name = 'Nora'
