@@ -83,13 +83,12 @@ class StationTestCase(unittest.TestCase):
 
     # Tests that it goes to the database view when a valid first
     # name and postcode is entered
-    # def test_valid_voter_search(self):
-    #     self.login(TEST_USERNAME, TEST_PASSWORD)
-    #     voter_name = 'James'
-    #     voter_postcode = 'SW7 1BE'
-    #     self.find_voter(voter_name, voter_postcode)
-    #     print result.data
-    #     assert voter_name and voter_postcode and b'Request PIN' in result.data
+    def test_valid_voter_search(self):
+        self.login(TEST_USERNAME, TEST_PASSWORD)
+        voter_name = 'Nora'
+        voter_postcode = 'IV1 1AA'
+        result = self.find_voter(voter_name, voter_postcode)
+        assert voter_name and voter_postcode and b'PIN' in result.data
 
 if __name__ == '__main__':
     unittest.main()
