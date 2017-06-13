@@ -118,7 +118,8 @@ def find_voter():
         session['voters'] = voters
         if success:
             # matching entry found
-            return render_template('voterdb.html', voters=voters)
+            #return render_template('voterdb.html', voters=voters)
+            return render_template('station.html', form=form, voters=voters)
         # no matching entry in database, try again
         return render_template('station.html', form=form, message="No matching entry found. Please try again.")
     # This means they have submitted an invalid form
@@ -129,6 +130,7 @@ def find_voter():
 @login_required
 def voterpincard():
     voterid = None
+    form = FindVoterForm(request.form)
     if request.method == "POST":
         # Voter id is the name of the only button in the form
         voterid = 0
@@ -139,6 +141,7 @@ def voterpincard():
         # If there was a voterid, get a pin and return the pin card
         if voterid is not 0:
             url = createPinURL(voterid)
+            print url
             dbresult = urllib2.urlopen(url).read()
             resultjson = json.loads(dbresult)
             success = resultjson['success']
@@ -150,9 +153,9 @@ def voterpincard():
                 # Must go back to voter database page_not_found
                 error_message = "Could not find PIN for that voter. Try again."
                 if voters in session:
-                    return render_template('voterdb.html', voters=session['voters'], error_message=error_message)
-        form = FindVoterForm(request.form)
-        return render_template('station.html', form=form)
+                    return render_template('station.html', form=form, voters=session['voters'], message=error_message)
+        error_message = "Could not find voter ID. Try again."
+        return render_template('station.html', form=form, message=error_message)
 
 def createSearchURL(firstname, postcode):
     firstname = firstname.strip()
