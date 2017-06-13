@@ -13,24 +13,64 @@
 {% block body %}
   {{ super() }}
   <form action="{{ url_for('station') }}" class="find-voter-form" method="post" name="find-voter">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="form-group station-info-entry">
         <label class="control-label" for="userName">First name(s)</label>
         <input type="text" class="form-control {% if form.firstname.errors[0] %}has-errors{% endif %}" name="firstname">
         <p class="help-block">Forename name registered to vote. <b>{{ form.firstname.errors[0] }} </b></p>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="form-group station-info-entry">
         <label class="control-label" for="userName">Postcode</label>
         <input type="text" class="form-control postcode {% if form.postcode.errors[0] %}has-errors{% endif %}" name="postcode">
         <p class="help-block">You know what a postcode is. <b>{{ form.postcode.errors[0] }}</b></p>
       </div>
-    </div>  
-    {{ form.csrf_token }}
-    <button class="btn btn-primary btn-start" type="submit" value="Search for voter" name="voter-search">Search voter database</button>
-
+    </div>
+    <div class="col-sm-4">
+      {{ form.csrf_token }}
+      <button class="btn btn-primary btn-start" type="submit" value="Search for voter" name="voter-search">Search voters</button>
+    </div>
   </form>
+
+  {% if voters %}
+  <form action="{{ url_for('voterpincard') }}" method="post">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Address</th>
+          <th>Postcode</th>
+          <th>D.O.B</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <!--repeat this table row for each item in items-->
+          {% for voter in voters %}
+
+          <tr>
+              <td>{{voter.fields.first_name}}</td>
+              <td>{{voter.fields.last_name}}</td>
+              <td>{{voter.fields.addr_line_1}} {% if voter.fields.addr_line_2 %} {{ voter.fields.addr_line_2 }} {% endif %}</td>
+              <td>{{voter.fields.postcode}}</td>
+              <td>{{voter.fields.date_of_birth[8:10]}}/{{voter.fields.date_of_birth[5:7]}}/{{voter.fields.date_of_birth[:4]}}</td>
+              <td>
+                {% if not voter.fields.used_vote %}
+                <input class="btn btn-primary voterdb-btn" type="submit" target="_blank" name="{{ voter.pk }}" value="Request PIN" />
+                {% elif voter.fields.active %}
+                <input class="btn btn-primary voterdb-btn-active" type="submit" target="_blank" name="{{ voter.pk }}" value="New PIN" />
+                {% else %}
+                <input class="btn btn-primary voterdb-btn-dead" type="submit" target="_blank" name="{{ voter.pk }}" value="Already Voted" disabled />
+                {% endif %}
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </form>
+  {% endif %}
 {% endblock %}
 
 {% block footer %}

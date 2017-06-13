@@ -91,6 +91,11 @@ form > .station-info-entry {
     border: 2px solid #ff0000;
 }
 
+.find-voter-form > .col-sm-4 > .btn-primary {
+    margin-top: 42px;
+		font-size: 20px;
+}
+
 .form-control {
   font-size: 20px;
   height: 45px;
