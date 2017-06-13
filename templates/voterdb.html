@@ -40,12 +40,12 @@
               <td>{{voter.fields.postcode}}</td>
               <td>{{voter.fields.date_of_birth[8:10]}}/{{voter.fields.date_of_birth[5:7]}}/{{voter.fields.date_of_birth[:4]}}</td>
               <td>
-                {% if not voter.fields.used_vote %}
-                <input class="btn btn-primary voterdb-btn" type="submit" target="_blank" name="{{ voter.pk }}" value="Request PIN" />
-                {% elif voter.fields.active %}
-                <input class="btn btn-primary voterdb-btn-active" type="submit" target="_blank" name="{{ voter.pk }}" value="New PIN" />
+                {% if voter.fields.used_vote %}
+                <input class="btn btn-primary voterdb-btn-dead" type="submit" name="{{ voter.pk }}" value="Already Voted" disabled />
+                {% elif voter.fields.active_pin %}
+                <input class="btn btn-primary voterdb-btn-active" type="submit" name="{{ voter.pk }}" value="New PIN" />
                 {% else %}
-                <input class="btn btn-primary voterdb-btn-dead" type="submit" target="_blank" name="{{ voter.pk }}" value="Already Voted" disabled />
+                <input class="btn btn-primary voterdb-btn" type="submit" name="{{ voter.pk }}" value="Request PIN" />
                 {% endif %}
               </td>
           </tr>

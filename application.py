@@ -121,7 +121,6 @@ def find_voter():
             #return render_template('voterdb.html', voters=voters)
             return render_template('station.html', form=form, voters=voters)
         # no matching entry in database, try again
-        print "No voters with that name"
         return render_template('station.html', form=form, message="No matching entry found. Please try again.")
     # This means they have submitted an invalid form
     return render_template('station.html', form=form, message="Invalid form submitted. Please try again.")
