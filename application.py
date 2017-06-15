@@ -1,6 +1,7 @@
 # $ pip install --upgrade -r requirements.txt
 # $ python -m flask run
 
+from api_key_verification import STATION_KEY
 from flask import Flask, Response, redirect, url_for, request, session, abort
 import flask_login
 from flask_login import LoginManager, UserMixin, \
@@ -111,7 +112,9 @@ def find_voter():
         firstname = request.form['firstname']
         postcode = request.form['postcode']
         url = createSearchURL(firstname, postcode)
-        dbresult = urllib2.urlopen(url).read()
+        get_request = urllib2.Request(url)
+        get_request.add_header("Authorization", STATION_KEY);
+        dbresult = urllib2.urlopen(get_request).read()
         resultjson = json.loads(dbresult)
         success = resultjson['success']
         voters = resultjson['voters']
@@ -140,7 +143,9 @@ def voterpincard():
         # If there was a voterid, get a pin and return the pin card
         if voterid is not 0:
             url = createPinURL(voterid)
-            dbresult = urllib2.urlopen(url).read()
+            get_request = urllib2.Request(url)
+            get_request.add_header("Authorization", STATION_KEY);
+            dbresult = urllib2.urlopen(get_request).read()
             resultjson = json.loads(dbresult)
             success = resultjson['success']
             voter_pin = resultjson['pin_code']
