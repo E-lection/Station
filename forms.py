@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm as Form
 from wtforms import StringField
 from wtforms.validators import DataRequired, Regexp
 
-POSTCODE_REGEX = '^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})'
+POSTCODE_REGEX = '^(?i)(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})'
 NAME_REGEX = '^[A-z ,.\'-]+$'
 
 class LoginForm(Form):

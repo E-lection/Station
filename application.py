@@ -111,6 +111,7 @@ def find_voter():
     if form.validate_on_submit():
         firstname = request.form['firstname']
         postcode = request.form['postcode']
+        postcode = postcode.upper()
         url = createSearchURL(firstname, postcode)
         get_request = urllib2.Request(url)
         get_request.add_header("Authorization", STATION_KEY);
