@@ -29,8 +29,8 @@ login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = "login"
 
-SEARCH_VOTER_URL = "http://127.0.0.1:8000/get_voters"
-PIN_URL = "http://127.0.0.1:7000/get_pin_code"
+SEARCH_VOTER_URL = "http://voting.eelection.co.uk/get_voters"
+PIN_URL = "http://pins.eelection.co.uk/get_pin_code"
 
 # User model
 class User(UserMixin):
