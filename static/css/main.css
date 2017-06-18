@@ -153,6 +153,10 @@ form > .station-info-entry {
   font-size: 18px;
 }
 
+.table > tbody > tr > .button-column {
+  width: 70px;
+}
+
 .table-striped>tbody>tr:nth-of-type(odd) {
     background-color: #f2f2f2;
 }
